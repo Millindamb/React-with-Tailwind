@@ -1,19 +1,14 @@
 import { useCallback, useState } from "react";
+import useCurrencyhook from "./hooks/useCurrencyhook";
 
 function App() {
-  //this function is created on every render as it does not uses call back hook
-  const handleClick = () => {
-    console.log("Clicked");
-  }
-  //this is function is not created on every render as it use callback hook
-  //means it will only be recreateed when its dependecies changes
-  const handleClick2 = useCallback(() => {
-    console.log("Clicked2");
-  },[])
-
+  const [from,setFrom]=useState("usd");
+  const [to,setTo]=useState("inr");
+  const data=useCurrencyhook(from);
   return(<>
-    <button className="border-2 rounded-lg p-2 bg-red-700" onClick={handleClick}>press</button>
-    <button className="border-2 rounded-lg p-2 bg-blue-700 text-white" onClick={handleClick2}>press this also</button>
+    <input type="text" value={from} onChange={(e)=>setFrom(e.target.value)}/>
+    <input type="text" value={to} onChange={(e)=>setTo(e.target.value)}/>
+    <div>{data[to]}</div>
     </>
   );
 }
