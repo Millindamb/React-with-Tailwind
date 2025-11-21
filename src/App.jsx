@@ -1,27 +1,21 @@
-import { use, useEffect , useRef, useState } from 'react'
-function App() {
-  //useRef used for:
-  // case 1:to update variable without rerendering
-  //case 2:to refere to something like focus on input,scroll...
-  const [x,setx]=useState(0);
-  const v=useRef(0);
+import { useCallback, useState } from "react";
 
-  const change=()=>{
-    setx(x+1);
-    v.current.focus();
+function App() {
+  //this function is created on every render as it does not uses call back hook
+  const handleClick = () => {
+    console.log("Clicked");
   }
-  function increase() {
-    count.current += 1;
-    console.log(count.current);
-  }
-  const count=useRef(0);
-  return (
-    <>
-    <input ref={v} type="text" onChange={(e)=>{e.target.value}} value={"so"} style={{backgroundColor : "white"}}/>
-    <button onClick={()=>change()}>press{x}</button><br></br>
-    <button onClick={()=>increase()}>press2{count.current}</button>
+  //this is function is not created on every render as it use callback hook
+  //means it will only be recreateed when its dependecies changes
+  const handleClick2 = useCallback(() => {
+    console.log("Clicked2");
+  },[])
+
+  return(<>
+    <button className="border-2 rounded-lg p-2 bg-red-700" onClick={handleClick}>press</button>
+    <button className="border-2 rounded-lg p-2 bg-blue-700 text-white" onClick={handleClick2}>press this also</button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
