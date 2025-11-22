@@ -1,17 +1,7 @@
-import './App.css'
-import Login from './context/Component/Login'
-import Profile from './context/Component/Profile'
-import UserContextProvider from './context/UserContextProvider'
-import Image from './context/Component/Image'
+export default function App() {
+  return (<div className="p-6 bg-blue-600 text-white text-3xl rounded-xl">
+      Tailwind v4 is working!
+    </div>
 
-function App() {
-
-  return (<UserContextProvider>
-      <Login/>
-      <Profile/>
-      <Image/>
-    </UserContextProvider>
-  )
+  );
 }
-
-export default App
